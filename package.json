@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/kkito/npm-link/issues"
   },
-  "homepage": "https://github.com/kkito/npm-link#readme"
+  "homepage": "https://github.com/kkito/npm-link#readme",
+  "dependencies": {
+    "shelljs": "^0.7.0"
+  },
+  "bin":{
+    "npm-link": "index.js"
+  }
+
 }
