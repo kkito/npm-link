@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('shelljs/global');
 // the cache dir of the environment ,eg: ~/.npm-link/npm/
 var base_fold = "~/.npm-link/npm/";
@@ -20,7 +22,7 @@ ln('-s' , package_fold , 'node_modules');
 
 
 // run npm install // or can use cnpm 
-exec('npm install');
+exec('cnpm install');
 
 // bower .....
 
