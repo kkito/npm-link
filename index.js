@@ -8,6 +8,7 @@ var base_fold = "~/.npm-link/npm/";
 mkdir('-p', base_fold);
 
 // 1, md5 package.json
+console.log("the package.json file's md5sum is: ")
 var md5str = exec("md5sum package.json  | awk '{print $1}'").stdout.trim();
 var package_fold = base_fold + "/" + md5str;
 
@@ -15,7 +16,7 @@ var package_fold = base_fold + "/" + md5str;
 rm('-rf', 'node_modules');
 ln('-s' , package_fold , 'node_modules');
 
-if(!fs.existssync(package_fold)){
+if(!fs.existsSync(package_fold)){
 	// file not exist
 	mkdir('-p', package_fold);
 
