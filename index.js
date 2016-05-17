@@ -38,6 +38,7 @@ if(action == "clean") {
 		exec('cnpm install');
 	}else{
 		console.log("cache found , mv " + cache_fold )
+		rm('-rf', "./node_modules");
 		mv(cache_fold , './node_modules')
 	}
 }else {
