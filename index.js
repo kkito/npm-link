@@ -7,25 +7,43 @@ var fs = require('fs');
 var base_fold = "~/.npm-link/npm/";
 mkdir('-p', base_fold);
 
-// 1, md5 package.json
-console.log("the package.json file's md5sum is: ")
-var md5str = exec("md5sum package.json  | awk '{print $1}'").stdout.trim();
-var package_fold = base_fold + "/" + md5str;
+// install # cnpm install
+// cache # mv to cache fold
+// clean # clean cache fold
+var action = process.argv[2]
 
-// if exist , rm the node_modules , and link to the dir
-rm('-rf', 'node_modules');
-ln('-s' , package_fold , 'node_modules');
-
-if(!fs.existsSync(package_fold)){
-	// file not exist
-	mkdir('-p', package_fold);
-
-	// run npm install // or can use cnpm 
-	exec('cnpm install');
-
+function getCacheFold(){
+	// 1, md5 package.json
+	console.log("the package.json file's md5sum is: ")
+	var md5str = exec("md5sum package.json  | awk '{print $1}'").stdout.trim();
+	var package_fold = base_fold + "/" + md5str;
+	return package_fold;
 }
 
+var cache_fold = getCacheFold();
+if(action == "clean") {
+	rm('-rf', cache_fold);
+}else if(action == 'cache') {
+	rm('-rf', cache_fold);
+	mv('./node_modules' , cache_fold)
+}else if(action == "install") {
+	if(!fs.existsSync(package_fold)){
+		exec('cnpm install');
+		// file not exist
+		mkdir('-p', package_fold);
+	}else{
+		mv(cache_fold , './node_modules')
+	}
+}else {
+	console.log('error action, only [install , clean ,cache] valid')
+	process.exit(1)
+}
 
 // bower .....
 
+// 1 homedir 
+// function getUserHome() {
+//   return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+//   }
+// 2 link eror
 
