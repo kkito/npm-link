@@ -22,16 +22,18 @@ function getCacheFold(){
 
 var cache_fold = getCacheFold();
 if(action == "clean") {
+	console.log("rm fold " + cache_fold)
 	rm('-rf', cache_fold);
 }else if(action == 'cache') {
 	rm('-rf', cache_fold);
 	mv('./node_modules' , cache_fold)
+	console.log("cache node_modules to " + cache_fold)
 }else if(action == "install") {
-	if(!fs.existsSync(package_fold)){
+	if(!fs.existsSync(cache_fold)){
+		console.log("cache not found cnpm install")
 		exec('cnpm install');
-		// file not exist
-		mkdir('-p', package_fold);
 	}else{
+		console.log("cache found , mv " + cache_fold )
 		mv(cache_fold , './node_modules')
 	}
 }else {
