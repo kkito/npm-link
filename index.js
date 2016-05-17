@@ -3,8 +3,12 @@
 require('shelljs/global');
 var fs = require('fs');
 
+function getUserHome() {
+  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+}
+
 // the cache dir of the environment ,eg: ~/.npm-link/npm/
-var base_fold = "~/.npm-link/npm/";
+var base_fold = getUserHome() + "/.npm-link/npm/";
 mkdir('-p', base_fold);
 
 // install # cnpm install
