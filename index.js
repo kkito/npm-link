@@ -11,6 +11,7 @@ function getUserHome() {
 var base_fold = getUserHome() + "/.npm-link/npm/";
 var base_bower_fold = getUserHome() + "/.npm-link/bower/";
 mkdir('-p', base_fold);
+mkdir('-p', base_bower_fold);
 
 // install # cnpm install
 // cache # mv to cache fold
@@ -23,14 +24,14 @@ function getCacheFold(){
 	// 1, md5 package.json
 	console.log("the package.json file's md5sum is: ")
 	var md5str = exec("md5sum package.json  | awk '{print $1}'").stdout.trim();
-	var package_fold = base_fold + "/" + md5str;
+	var package_fold = base_fold + md5str;
 	return package_fold;
 }
 
 function getBowerCacheFold(){
 	console.log("the bower.json file's md5sum is: ")
 	var md5str = exec("md5sum bower.json | awk '{print $1}'").stdout.trim();
-	var package_fold = base_bower_fold + "/" + md5str;
+	var package_fold = base_bower_fold + md5str;
 	return package_fold;
 
 }
