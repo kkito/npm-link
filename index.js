@@ -72,7 +72,7 @@ if(action == "clean") {
         }else{
             console.log("cache found , mv " + cache_bower_fold)
             rm('-rf', "./bower_components");
-            mv(cache_fold , './bower_components')
+            mv(cache_bower_fold, './bower_components')
         }
     }
 }else {
